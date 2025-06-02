@@ -1,0 +1,267 @@
+/* style.css */
+
+/* --- Reset Básico e Globais --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Uma fonte fallback limpa */
+    /* Para usar uma fonte pixelada como "Press Start 2P", descomente no HTML e adicione aqui: */
+    /* font-family: 'Press Start 2P', cursive; */
+    background-color: #121212; /* Um preto não tão absoluto, mais suave */
+    color: #e0e0e0; /* Cinza claro para texto padrão */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden; /* Evitar scroll horizontal */
+}
+
+/* --- Wrapper Principal do Jogo --- */
+#game-wrapper {
+    width: 100%;
+    max-width: 800px; /* Largura máxima do container do jogo */
+    background-color: #1e1e1e; /* Cor de fundo do container */
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.3), 0 0 15px rgba(255, 0, 255, 0.3); /* Sombra neon sutil */
+    padding: 20px;
+    border: 1px solid #00ffff40; /* Borda cyan sutil */
+}
+
+/* --- Cabeçalho --- */
+.game-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.game-header h1 {
+    font-size: 2.8em; /* Tamanho maior para o título */
+    /* Se estiver usando "Press Start 2P", talvez precise de um tamanho menor, ex: 1.8em */
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow:
+        0 0 5px #00ffff, /* Cyan */
+        0 0 10px #00ffff,
+        0 0 15px #00ffff,
+        0 0 20px #ff00ff, /* Magenta */
+        0 0 25px #ff00ff;
+}
+
+.game-header h1 .fire-emoji {
+    /* O emoji de fogo geralmente já se destaca, mas pode ser ajustado se necessário */
+    /* vertical-align: middle; */ /* Exemplo de ajuste */
+}
+
+
+/* --- Container Principal do Jogo --- */
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- Placar --- */
+#scoreboard {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 600px; /* Para não ficar muito largo em telas grandes */
+    margin-bottom: 20px;
+    background-color: #2a2a2a;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.score-player {
+    text-align: center;
+    flex-basis: 45%; /* Para dar espaço entre os placares */
+}
+
+.player-name {
+    display: block;
+    font-size: 0.9em;
+    /* Se "Press Start 2P", ajuste para ex: 0.7em */
+    color: #00ffff; /* Cyan para nome do jogador */
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.score-value {
+    font-size: 2.5em;
+    /* Se "Press Start 2P", ajuste para ex: 1.5em */
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 8px #ffffff80;
+}
+
+/* --- Arena do Jogo (Canvas e Overlay) --- */
+#game-arena {
+    position: relative; /* Essencial para o overlay funcionar corretamente */
+    width: 100%;
+    max-width: 720px; /* Defina a largura do seu canvas aqui também */
+    /* A altura será definida pelo JavaScript no canvas, mas podemos dar um aspect-ratio aproximado */
+    aspect-ratio: 4 / 3; /* Proporção comum para Pong, ajuste conforme seu canvas */
+    margin-bottom: 20px;
+    display: flex; /* Para centralizar o canvas caso ele seja menor */
+    justify-content: center;
+    align-items: center;
+}
+
+#pongCanvas {
+    display: block; /* Remove espaço extra abaixo do canvas */
+    background-color: #000; /* Fundo preto para o canvas do jogo */
+    border: 2px solid #00ffff; /* Borda neon cyan */
+    box-shadow: 0 0 15px #00ffff inset, 0 0 10px #00ffff; /* Brilho interno e externo */
+    max-width: 100%;
+    max-height: 100%;
+    /* As dimensões exatas (width/height) do canvas serão definidas via JavaScript */
+}
+
+/* --- Overlay de Mensagens do Jogo --- */
+#game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Fundo preto semi-transparente */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: inherit; /* Herda o border-radius da arena se houver */
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transição suave */
+}
+
+#game-overlay.hidden { /* Classe para esconder o overlay */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Importante para não bloquear cliques no canvas quando escondido */
+}
+
+#main-message {
+    font-size: 2em;
+    /* Se "Press Start 2P", ajuste para ex: 1.2em */
+    margin-bottom: 10px;
+    color: #ff00ff; /* Magenta para mensagem principal */
+    text-shadow: 0 0 8px #ff00ff;
+    text-transform: uppercase;
+}
+
+#sub-message {
+    font-size: 1.2em;
+    /* Se "Press Start 2P", ajuste para ex: 0.8em */
+    color: #e0e0e0;
+}
+
+/* Seleção de Dificuldade (dentro do overlay) */
+#difficulty-selection {
+    margin-top: 20px;
+}
+
+#difficulty-selection p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+     /* Se "Press Start 2P", ajuste para ex: 0.75em */
+}
+
+.difficulty-btn {
+    background-color: transparent;
+    color: #00ffff;
+    border: 2px solid #00ffff;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 1em;
+     /* Se "Press Start 2P", ajuste para ex: 0.7em */
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 5px;
+    text-shadow: 0 0 5px #00ffff80;
+}
+
+.difficulty-btn:hover, .difficulty-btn:focus {
+    background-color: #00ffff;
+    color: #121212;
+    box-shadow: 0 0 15px #00ffff;
+}
+
+/* --- Informações de Controle --- */
+#controls-info {
+    text-align: center;
+    font-size: 0.9em;
+    /* Se "Press Start 2P", ajuste para ex: 0.6em */
+    color: #aaa;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+#controls-info p {
+    margin-bottom: 5px;
+}
+
+/* --- Rodapé --- */
+.game-footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.8em;
+    /* Se "Press Start 2P", ajuste para ex: 0.5em */
+    color: #666;
+}
+
+/* --- Classe Utilitária --- */
+.hidden {
+    display: none !important; /* !important para garantir que sobreponha outras regras de display */
+}
+
+/* --- Responsividade Simples (Exemplo) --- */
+@media (max-width: 600px) {
+    .game-header h1 {
+        font-size: 2em;
+        /* Se "Press Start 2P", ajuste para ex: 1.2em */
+    }
+    .score-value {
+        font-size: 2em;
+        /* Se "Press Start 2P", ajuste para ex: 1.2em */
+    }
+    #main-message {
+        font-size: 1.5em;
+         /* Se "Press Start 2P", ajuste para ex: 1em */
+    }
+    #sub-message {
+        font-size: 1em;
+         /* Se "Press Start 2P", ajuste para ex: 0.7em */
+    }
+    .difficulty-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+    #game-wrapper {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    #scoreboard {
+        flex-direction: column; /* Empilha os placares em telas pequenas */
+        align-items: center;
+    }
+    .score-player {
+        margin-bottom: 10px;
+    }
+    .game-header h1 {
+        font-size: 1.6em;
+        /* Se "Press Start 2P", ajuste para ex: 1em */
+    }
+}

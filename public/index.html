@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong F🔥DA!</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <div id="game-wrapper">
+        <header class="game-header">
+            <h1>PONG F<span class="fire-emoji">🔥</span>DA!</h1>
+        </header>
+
+        <main id="game-container">
+            <div id="scoreboard">
+                <div class="score-player" id="player1-score-container">
+                    <span class="player-name">JOGADOR 1</span>
+                    <span class="score-value" id="scorePlayer1">0</span>
+                </div>
+                <div class="score-player" id="player2-score-container">
+                    <span class="player-name">JOGADOR 2</span> <span class="score-value" id="scorePlayer2">0</span>
+                </div>
+            </div>
+
+            <div id="game-arena">
+                <canvas id="pongCanvas"></canvas>
+                <div id="game-overlay">
+                    <h2 id="main-message">Pressione ESPAÇO</h2>
+                    <p id="sub-message">para iniciar!</p>
+                    <div id="difficulty-selection" class="hidden">
+                        <p>Escolha a dificuldade da IA:</p>
+                        <button class="difficulty-btn" data-difficulty="easy">Fácil (1)</button>
+                        <button class="difficulty-btn" data-difficulty="medium">Médio (2)</button>
+                        <button class="difficulty-btn" data-difficulty="hard">Difícil (3)</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="controls-info">
+                <p><strong>Controles Jogador 1:</strong> W (Cima) / S (Baixo)</p>
+                <p><strong>Pausa:</strong> P</p>
+            </div>
+        </main>
+
+        <footer class="game-footer">
+            <p>&copy; <span id="currentYear"></span> Seu Nome/Apelido Aqui - Inspirado no clássico Pong</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Pequeno script para o ano no rodapé
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
