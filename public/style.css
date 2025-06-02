@@ -1,4 +1,28 @@
-/* style.css */
+/* style.css - Refinado, Minimalista e Bonito */
+
+/* --- Variáveis de Cor (para fácil customização) --- */
+:root {
+    --bg-color-darkest: #1a1d20;  /* Fundo principal do body */
+    --bg-color-dark: #25292d;     /* Fundo de containers (wrapper) */
+    --bg-color-medium: #30353a;   /* Fundo de elementos internos (placar, botões) */
+    --bg-color-light: #3c4248;    /* Fundo para hover/ativo */
+    
+    --text-color-primary: #e0e6eb; /* Texto principal (quase branco) */
+    --text-color-secondary: #a0a8b0;/* Texto secundário (cinza claro) */
+    --text-color-muted: #707880;   /* Texto menos importante (cinza) */
+    
+    --accent-color-primary: #4a90e2; /* Um azul calmo e profissional */
+    --accent-color-secondary: #50c878;/* Um verde para sucesso/ações positivas */
+    --accent-color-danger: #e94f37;   /* Um vermelho para alertas/ações destrutivas */
+
+    --border-color: #4a4e50;       /* Cor de borda sutil */
+    --shadow-color: rgba(0, 0, 0, 0.2); /* Sombra bem suave */
+
+    --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte principal limpa */
+    /* Se quiser usar uma fonte do Google, por exemplo 'Inter': */
+    /* --font-primary: 'Inter', sans-serif; */
+    --font-display: 'Rajdhani', sans-serif; /* Fonte para títulos maiores, se importada */
+}
 
 /* --- Reset Básico e Globais --- */
 * {
@@ -7,261 +31,465 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 16px; /* Base para REMs */
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Uma fonte fallback limpa */
-    /* Para usar uma fonte pixelada como "Press Start 2P", descomente no HTML e adicione aqui: */
-    /* font-family: 'Press Start 2P', cursive; */
-    background-color: #121212; /* Um preto não tão absoluto, mais suave */
-    color: #e0e0e0; /* Cinza claro para texto padrão */
+    font-family: var(--font-primary);
+    background-color: var(--bg-color-darkest);
+    color: var(--text-color-primary);
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
-    overflow-x: hidden; /* Evitar scroll horizontal */
+    line-height: 1.6;
 }
 
 /* --- Wrapper Principal do Jogo --- */
 #game-wrapper {
     width: 100%;
-    max-width: 800px; /* Largura máxima do container do jogo */
-    background-color: #1e1e1e; /* Cor de fundo do container */
-    border-radius: 10px;
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.3), 0 0 15px rgba(255, 0, 255, 0.3); /* Sombra neon sutil */
-    padding: 20px;
-    border: 1px solid #00ffff40; /* Borda cyan sutil */
+    max-width: 850px; /* Um pouco mais largo para acomodar melhor */
+    background-color: var(--bg-color-dark);
+    border-radius: 12px; /* Bordas mais suaves */
+    box-shadow: 0 8px 25px var(--shadow-color);
+    padding: 25px 30px;
+    border: 1px solid var(--border-color);
 }
 
 /* --- Cabeçalho --- */
 .game-header {
-    text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
 }
 
 .game-header h1 {
-    font-size: 2.8em; /* Tamanho maior para o título */
-    /* Se estiver usando "Press Start 2P", talvez precise de um tamanho menor, ex: 1.8em */
-    color: #fff;
+    font-family: var(--font-display, var(--font-primary)); /* Usa Rajdhani se disponível */
+    font-size: 2.2rem;
+    color: var(--text-color-primary);
     text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow:
-        0 0 5px #00ffff, /* Cyan */
-        0 0 10px #00ffff,
-        0 0 15px #00ffff,
-        0 0 20px #ff00ff, /* Magenta */
-        0 0 25px #ff00ff;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Sombra muito sutil */
 }
 
-.game-header h1 .fire-emoji {
-    /* O emoji de fogo geralmente já se destaca, mas pode ser ajustado se necessário */
-    /* vertical-align: middle; */ /* Exemplo de ajuste */
+.game-header h1 .deluxe-badge {
+    font-size: 0.5em;
+    color: var(--accent-color-primary);
+    vertical-align: super;
+    margin-left: 5px;
+    font-weight: normal;
+    letter-spacing: 0;
 }
 
-
-/* --- Container Principal do Jogo --- */
-#game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#main-nav .nav-btn {
+    background: none;
+    border: 1px solid transparent; /* Começa transparente */
+    color: var(--text-color-secondary);
+    padding: 8px 12px;
+    margin-left: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: var(--font-primary);
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
+#main-nav .nav-btn .icon {
+    margin-right: 6px;
+}
+#main-nav .nav-btn:hover, #main-nav .nav-btn:focus {
+    color: var(--accent-color-primary);
+    border-color: var(--accent-color-primary);
+    background-color: rgba(74, 144, 226, 0.1);
+}
+#main-nav .nav-btn .btn-text {
+    /* Em telas menores, podemos esconder o texto, deixando só o ícone */
+}
+
 
 /* --- Placar --- */
 #scoreboard {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    max-width: 600px; /* Para não ficar muito largo em telas grandes */
-    margin-bottom: 20px;
-    background-color: #2a2a2a;
-    padding: 15px;
+    max-width: 650px;
+    margin: 0 auto 25px auto;
+    background-color: var(--bg-color-medium);
+    padding: 15px 20px;
     border-radius: 8px;
-    border: 1px solid #333;
 }
 
 .score-player {
     text-align: center;
-    flex-basis: 45%; /* Para dar espaço entre os placares */
+    flex-basis: 45%;
 }
 
-.player-name {
+.player-label {
     display: block;
-    font-size: 0.9em;
-    /* Se "Press Start 2P", ajuste para ex: 0.7em */
-    color: #00ffff; /* Cyan para nome do jogador */
+    font-size: 0.85rem;
+    color: var(--text-color-secondary);
     margin-bottom: 5px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+    font-weight: 600;
 }
 
 .score-value {
-    font-size: 2.5em;
-    /* Se "Press Start 2P", ajuste para ex: 1.5em */
-    color: #fff;
-    font-weight: bold;
-    text-shadow: 0 0 8px #ffffff80;
+    font-family: var(--font-display, var(--font-primary));
+    font-size: 2.8rem;
+    color: var(--text-color-primary);
+    font-weight: 700;
 }
 
-/* --- Arena do Jogo (Canvas e Overlay) --- */
+/* --- Arena do Jogo --- */
+#game-arena-wrapper {
+    /* Pode ser usado para adicionar margens ou padding em volta da arena e barra de ações */
+}
+
 #game-arena {
-    position: relative; /* Essencial para o overlay funcionar corretamente */
+    position: relative;
     width: 100%;
-    max-width: 720px; /* Defina a largura do seu canvas aqui também */
-    /* A altura será definida pelo JavaScript no canvas, mas podemos dar um aspect-ratio aproximado */
-    aspect-ratio: 4 / 3; /* Proporção comum para Pong, ajuste conforme seu canvas */
-    margin-bottom: 20px;
-    display: flex; /* Para centralizar o canvas caso ele seja menor */
+    max-width: 720px; /* Mantém o tamanho do canvas */
+    aspect-ratio: 4 / 3;
+    margin: 0 auto 15px auto; /* Centraliza e dá espaço abaixo */
+    display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #000; /* Fundo do canvas, mas o JS desenha por cima */
+    border-radius: 6px; /* Borda arredondada para a área do canvas */
+    overflow: hidden; /* Garante que o overlay respeite o border-radius */
 }
 
 #pongCanvas {
-    display: block; /* Remove espaço extra abaixo do canvas */
-    background-color: #000; /* Fundo preto para o canvas do jogo */
-    border: 2px solid #00ffff; /* Borda neon cyan */
-    box-shadow: 0 0 15px #00ffff inset, 0 0 10px #00ffff; /* Brilho interno e externo */
+    display: block;
+    background-color: #080808; /* Fundo realmente escuro para o jogo */
+    /* A borda pode ser opcional se o contraste com #game-arena for suficiente */
+    /* border: 1px solid var(--border-color); */
     max-width: 100%;
     max-height: 100%;
-    /* As dimensões exatas (width/height) do canvas serão definidas via JavaScript */
 }
 
-/* --- Overlay de Mensagens do Jogo --- */
+/* --- Overlay e Visões --- */
 #game-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.85); /* Fundo preto semi-transparente */
-    color: #fff;
-    display: flex;
+    background-color: rgba(37, 41, 45, 0.92); /* Fundo do overlay mais integrado */
+    color: var(--text-color-primary);
+    display: flex; /* Será usado para centralizar o conteúdo da view ativa */
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    border-radius: inherit; /* Herda o border-radius da arena se houver */
-    opacity: 1;
+    opacity: 1; /* Controlado pela classe .hidden da view */
     visibility: visible;
-    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transição suave */
+    transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
 }
 
-#game-overlay.hidden { /* Classe para esconder o overlay */
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none; /* Importante para não bloquear cliques no canvas quando escondido */
+.overlay-view {
+    padding: 20px;
+    width: 100%;
+    max-width: 450px; /* Limita a largura do conteúdo do overlay */
 }
 
-#main-message {
-    font-size: 2em;
-    /* Se "Press Start 2P", ajuste para ex: 1.2em */
-    margin-bottom: 10px;
-    color: #ff00ff; /* Magenta para mensagem principal */
-    text-shadow: 0 0 8px #ff00ff;
-    text-transform: uppercase;
+.overlay-view.hidden {
+    display: none !important; /* Esconde as views inativas */
 }
 
-#sub-message {
-    font-size: 1.2em;
-    /* Se "Press Start 2P", ajuste para ex: 0.8em */
-    color: #e0e0e0;
+.overlay-title {
+    font-family: var(--font-display, var(--font-primary));
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--text-color-primary);
+    font-weight: 600;
+}
+.overlay-subtitle {
+    font-size: 1rem;
+    color: var(--text-color-secondary);
+    margin-bottom: 25px;
 }
 
-/* Seleção de Dificuldade (dentro do overlay) */
 #difficulty-selection {
-    margin-top: 20px;
+    margin: 20px 0;
 }
-
 #difficulty-selection p {
-    margin-bottom: 10px;
-    font-size: 1.1em;
-     /* Se "Press Start 2P", ajuste para ex: 0.75em */
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: var(--text-color-secondary);
+}
+.difficulty-buttons-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espaço entre os botões de dificuldade */
 }
 
-.difficulty-btn {
-    background-color: transparent;
-    color: #00ffff;
-    border: 2px solid #00ffff;
-    padding: 10px 20px;
-    margin: 5px;
-    font-size: 1em;
-     /* Se "Press Start 2P", ajuste para ex: 0.7em */
+.action-btn, .difficulty-btn {
+    background-color: var(--bg-color-medium);
+    color: var(--text-color-primary);
+    border: 1px solid var(--border-color);
+    padding: 12px 25px;
+    margin: 8px 5px;
+    font-size: 0.95rem;
+    font-family: var(--font-primary);
+    font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-    border-radius: 5px;
-    text-shadow: 0 0 5px #00ffff80;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+.action-btn:hover, .difficulty-btn:hover {
+    background-color: var(--bg-color-light);
+    border-color: var(--accent-color-primary);
+    transform: translateY(-1px);
+}
+.action-btn.primary-action {
+    background-color: var(--accent-color-primary);
+    border-color: var(--accent-color-primary);
+    color: #fff;
+}
+.action-btn.primary-action:hover {
+    background-color: #3a80d2; /* Tom mais escuro do azul para hover */
+    border-color: #3a80d2;
+}
+.action-btn.secondary-action {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color-secondary);
+}
+.action-btn.secondary-action:hover {
+    border-color: var(--text-color-primary);
+    color: var(--text-color-primary);
+    background-color: var(--bg-color-light);
 }
 
-.difficulty-btn:hover, .difficulty-btn:focus {
-    background-color: #00ffff;
-    color: #121212;
-    box-shadow: 0 0 15px #00ffff;
+.button-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
-/* --- Informações de Controle --- */
-#controls-info {
+/* Spinner (Exemplo simples) */
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-left-color: var(--accent-color-primary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- Barra de Ações no Jogo --- */
+#game-action-bar {
+    display: flex;
+    justify-content: flex-end; /* Alinha o botão de pausa à direita */
+    align-items: center;
+    padding: 8px 0; /* Menos padding vertical */
+    width: 100%;
+    max-width: 720px; /* Mesma largura do canvas */
+    margin: 0 auto 15px auto; /* Centraliza */
+}
+#game-action-bar.hidden { display: none; }
+
+.game-control-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-color-secondary);
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+.game-control-btn .icon { margin-right: 5px; }
+.game-control-btn:hover {
+    color: var(--accent-color-primary);
+    border-color: var(--accent-color-primary);
+}
+
+/* --- Informações de Controle Estáticas --- */
+#controls-info-static {
     text-align: center;
-    font-size: 0.9em;
-    /* Se "Press Start 2P", ajuste para ex: 0.6em */
-    color: #aaa;
-    line-height: 1.6;
-    margin-top: 10px;
-}
-
-#controls-info p {
-    margin-bottom: 5px;
+    font-size: 0.8rem;
+    color: var(--text-color-muted);
+    margin-top: 20px;
+    line-height: 1.5;
 }
 
 /* --- Rodapé --- */
 .game-footer {
     text-align: center;
-    margin-top: 30px;
-    font-size: 0.8em;
-    /* Se "Press Start 2P", ajuste para ex: 0.5em */
-    color: #666;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.8rem;
+    color: var(--text-color-muted);
+    width: 100%;
+    max-width: 850px;
 }
+
+/* --- Modais --- */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente */
+    display: flex; /* Para centralizar o .modal-content */
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.modal.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.modal-content {
+    background-color: var(--bg-color-dark);
+    margin: auto;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    width: 90%;
+    max-width: 550px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    position: relative; /* Para o botão de fechar */
+}
+.modal-content h2 {
+    font-family: var(--font-display, var(--font-primary));
+    color: var(--accent-color-primary);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+}
+.modal-content p, .modal-content ul {
+    margin-bottom: 15px;
+    color: var(--text-color-secondary);
+    font-size: 0.95rem;
+}
+.modal-content ul {
+    padding-left: 20px;
+}
+.modal-content hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 20px 0;
+}
+.modal-close-btn {
+    color: var(--text-color-muted);
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+}
+.modal-close-btn:hover, .modal-close-btn:focus {
+    color: var(--text-color-primary);
+}
+
+/* Estilos para Opções no Modal */
+.settings-option {
+    margin-bottom: 15px;
+}
+.settings-option label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: var(--text-color-secondary);
+}
+.settings-option input[type="range"], 
+.settings-option select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color-medium);
+    color: var(--text-color-primary);
+    font-size: 0.9rem;
+}
+.settings-option input[type="range"] {
+    padding: 0; /* Range não precisa de padding vertical */
+}
+
+.placeholder-text {
+    font-style: italic;
+    color: var(--text-color-muted);
+    text-align: center;
+    margin-bottom: 20px !important;
+}
+
 
 /* --- Classe Utilitária --- */
 .hidden {
-    display: none !important; /* !important para garantir que sobreponha outras regras de display */
+    display: none !important;
+}
+/* Tooltip (simples, apenas para mostrar a ideia) */
+.tooltip {
+    position: relative;
+}
+.tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%; /* Acima do botão */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #000;
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    z-index: 10;
 }
 
-/* --- Responsividade Simples (Exemplo) --- */
-@media (max-width: 600px) {
-    .game-header h1 {
-        font-size: 2em;
-        /* Se "Press Start 2P", ajuste para ex: 1.2em */
-    }
-    .score-value {
-        font-size: 2em;
-        /* Se "Press Start 2P", ajuste para ex: 1.2em */
-    }
-    #main-message {
-        font-size: 1.5em;
-         /* Se "Press Start 2P", ajuste para ex: 1em */
-    }
-    #sub-message {
-        font-size: 1em;
-         /* Se "Press Start 2P", ajuste para ex: 0.7em */
-    }
-    .difficulty-btn {
-        padding: 8px 15px;
-        font-size: 0.9em;
-    }
-    #game-wrapper {
-        padding: 15px;
-    }
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    body { padding: 15px; }
+    #game-wrapper { padding: 20px; }
+    .game-header h1 { font-size: 1.8rem; }
+    #main-nav .nav-btn .btn-text { display: none; } /* Esconde texto, mostra só ícone */
+    #main-nav .nav-btn .icon { margin-right: 0; }
+    .score-value { font-size: 2.2rem; }
+    .overlay-title { font-size: 1.5rem; }
+    .overlay-subtitle { font-size: 0.9rem; }
+    .action-btn, .difficulty-btn { padding: 10px 20px; font-size: 0.9rem; }
 }
 
-@media (max-width: 400px) {
-    #scoreboard {
-        flex-direction: column; /* Empilha os placares em telas pequenas */
-        align-items: center;
-    }
-    .score-player {
-        margin-bottom: 10px;
-    }
-    .game-header h1 {
-        font-size: 1.6em;
-        /* Se "Press Start 2P", ajuste para ex: 1em */
-    }
+@media (max-width: 480px) {
+    html { font-size: 14px; } /* Reduz a base para telas bem pequenas */
+    .game-header h1 { font-size: 1.5rem; }
+    #scoreboard { flex-direction: column; align-items: center; gap: 10px; }
+    .score-player { flex-basis: auto; }
+    #game-action-bar { justify-content: center; } /* Centraliza botão de pausa */
+    .modal-content { padding: 20px; width: 95%; }
+    .modal-content h2 { font-size: 1.4rem; }
+    .button-group { flex-direction: column; gap: 10px; }
+    .action-btn, .difficulty-btn { width: 100%; }
 }

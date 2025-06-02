@@ -331,16 +331,19 @@ function gameLoop() {
             
         }
         // Colisão da bola com player2 (IA)
+        // Colisão da bola com player2 (IA) - CORRIGIDO
         else if (collision(ball, player2)) {
             // hitSound.play();
             let collidePoint = (ball.y - (player2.y + player2.height / 2)) / (player2.height / 2);
-            let angleRad = collidePoint * (Math.PI / 4);
+            let angleRad = collidePoint * (Math.PI / 4); // Ângulo de até 45 graus
 
-            ball.speedX = ball.baseSpeedX * Math.cos(angleRad) * 1; // Direção X positiva para a IA
-            ball.speedY = ball.baseSpeedX * Math.sin(angleRad);
+            // A bola bateu na paleta da direita, então sua direção X deve ser invertida (negativa)
+            ball.speedX = ball.baseSpeedX * Math.cos(angleRad) * -1; // Inverte X para ir para a esquerda
+            ball.speedY = ball.baseSpeedX * Math.sin(angleRad); // Mantém cálculo do ângulo Y
             ball.increaseSpeed();
-            // Evitar que a bola entre na paleta
-            if(ball.speedX > 0) ball.x = player2.x - ball.radius;
+
+            // Garante que a bola seja movida para fora da paleta para evitar múltiplas colisões
+            ball.x = player2.x - ball.radius -1; // Move a bola para a esquerda da paleta da IA
         }
 
         // Pontuação

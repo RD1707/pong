@@ -3,55 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pong F🔥DA!</title>
+    <title>Pong F🔥DA! Deluxe</title>
     <link rel="stylesheet" href="style.css">
     </head>
 <body>
     <div id="game-wrapper">
         <header class="game-header">
-            <h1>PONG F<span class="fire-emoji">🔥</span>DA!</h1>
+            <div class="header-content">
+                <h1>PONG F<span class="fire-emoji">🔥</span>DA! <span class="deluxe-badge">Deluxe</span></h1>
+                <nav id="main-nav">
+                    <button id="howToPlayBtn" class="nav-btn tooltip" data-tooltip="Como Jogar?">
+                        <span class="icon">❓</span> <span class="btn-text">Como Jogar</span>
+                    </button>
+                    <button id="settingsBtn" class="nav-btn tooltip" data-tooltip="Configurações">
+                        <span class="icon">⚙️</span> <span class="btn-text">Opções</span>
+                    </button>
+                </nav>
+            </div>
         </header>
 
         <main id="game-container">
             <div id="scoreboard">
                 <div class="score-player" id="player1-score-container">
-                    <span class="player-name">JOGADOR 1</span>
+                    <span class="player-label">JOGADOR 1</span>
                     <span class="score-value" id="scorePlayer1">0</span>
                 </div>
                 <div class="score-player" id="player2-score-container">
-                    <span class="player-name">JOGADOR 2</span> <span class="score-value" id="scorePlayer2">0</span>
+                    <span class="player-label" id="player2NameDisplay">IA</span> <span class="score-value" id="scorePlayer2">0</span>
                 </div>
             </div>
 
-            <div id="game-arena">
-                <canvas id="pongCanvas"></canvas>
-                <div id="game-overlay">
-                    <h2 id="main-message">Pressione ESPAÇO</h2>
-                    <p id="sub-message">para iniciar!</p>
-                    <div id="difficulty-selection" class="hidden">
-                        <p>Escolha a dificuldade da IA:</p>
-                        <button class="difficulty-btn" data-difficulty="easy">Fácil (1)</button>
-                        <button class="difficulty-btn" data-difficulty="medium">Médio (2)</button>
-                        <button class="difficulty-btn" data-difficulty="hard">Difícil (3)</button>
+            <div id="game-arena-wrapper">
+                <div id="game-arena">
+                    <canvas id="pongCanvas"></canvas>
+                    <div id="game-overlay">
+                        <div id="menu-view" class="overlay-view active-view">
+                            <h2 class="overlay-title">Bem-vindo ao Pong F<span class="fire-emoji">🔥</span>DA!</h2>
+                            <p class="overlay-subtitle">Prepare seus reflexos!</p>
+                            <div id="difficulty-selection">
+                                <p>Escolha a dificuldade da IA:</p>
+                                <div class="difficulty-buttons-group">
+                                    <button class="difficulty-btn" data-difficulty="easy">Fácil (1)</button>
+                                    <button class="difficulty-btn" data-difficulty="medium">Médio (2)</button>
+                                    <button class="difficulty-btn" data-difficulty="hard">Difícil (3)</button>
+                                </div>
+                            </div>
+                            <button id="startGameBtn" class="action-btn primary-action">Iniciar Jogo</button>
+                        </div>
+
+                        <div id="pause-view" class="overlay-view hidden">
+                            <h2 class="overlay-title">JOGO PAUSADO</h2>
+                            <div class="button-group">
+                                <button id="resumeGameBtn" class="action-btn primary-action">Continuar (P)</button>
+                                <button id="quitToMenuBtnPause" class="action-btn secondary-action">Voltar ao Menu</button>
+                            </div>
+                        </div>
+
+                        <div id="gameover-view" class="overlay-view hidden">
+                            <h2 class="overlay-title" id="gameover-message">FIM DE JOGO!</h2>
+                            <p class="overlay-subtitle" id="winner-message"></p>
+                            <div class="button-group">
+                                <button id="restartGameBtn" class="action-btn primary-action">Jogar Novamente</button>
+                                <button id="quitToMenuBtnGameover" class="action-btn secondary-action">Voltar ao Menu</button>
+                            </div>
+                        </div>
+                         <div id="waiting-opponent-view" class="overlay-view hidden">
+                            <h2 class="overlay-title">Aguardando Oponente...</h2>
+                            <p class="overlay-subtitle">Conectando ao servidor. Por favor, aguarde.</p>
+                            <div class="spinner"></div>
+                        </div>
                     </div>
                 </div>
+                <div id="game-action-bar" class="hidden"> <span id="current-turn-indicator" class="hidden"></span>
+                    <button id="pauseGameBtnInline" class="game-control-btn tooltip" data-tooltip="Pausar (P)">
+                        <span class="icon">❚❚</span> Pausar
+                    </button>
+                </div>
             </div>
 
-            <div id="controls-info">
-                <p><strong>Controles Jogador 1:</strong> W (Cima) / S (Baixo)</p>
-                <p><strong>Pausa:</strong> P</p>
+            <div id="controls-info-static">
+                <p><strong>Controles J1:</strong> W (Cima) / S (Baixo)</p>
+                <p><strong>Pausar/Continuar:</strong> P</p>
             </div>
         </main>
 
         <footer class="game-footer">
-            <p>&copy; <span id="currentYear"></span> Seu Nome/Apelido Aqui - Inspirado no clássico Pong</p>
+            <p>&copy; <span id="currentYear"></span> Seu Nome/Apelido Aqui - Projeto Pong Deluxe</p>
         </footer>
+    </div>
+
+    <div id="howToPlayModal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="closeHowToPlayBtn" aria-label="Fechar">&times;</button>
+            <h2>Como Jogar Pong F<span class="fire-emoji">🔥</span>DA!</h2>
+            <p>O objetivo é simples: use sua paleta para rebater a bola e fazer com que ela passe pela paleta do seu oponente para marcar pontos!</p>
+            <hr>
+            <h3>Controles (Jogador 1):</h3>
+            <ul>
+                <li><strong>W</strong> ou <strong>Seta para Cima</strong>: Mover paleta para cima.</li>
+                <li><strong>S</strong> ou <strong>Seta para Baixo</strong>: Mover paleta para baixo.</li>
+            </ul>
+            <h3>No Jogo:</h3>
+            <ul>
+                <li><strong>P</strong>: Pausar ou continuar o jogo.</li>
+            </ul>
+            <h3>Pontuação:</h3>
+            <p>O primeiro jogador a atingir <strong>5 pontos</strong> vence a partida!</p>
+            <p>Divirta-se e mostre seus reflexos!</p>
+        </div>
+    </div>
+
+    <div id="settingsModal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="closeSettingsBtn" aria-label="Fechar">&times;</button>
+            <h2>Opções do Jogo</h2>
+            <p class="placeholder-text">Recursos de configuração estarão disponíveis em breve!</p>
+            <div class="settings-option">
+                <label for="sound-volume">Volume dos Efeitos:</label>
+                <input type="range" id="sound-volume" name="sound-volume" min="0" max="1" step="0.1" value="0.5">
+            </div>
+             <div class="settings-option">
+                <label for="music-volume">Volume da Música:</label>
+                <input type="range" id="music-volume" name="music-volume" min="0" max="1" step="0.1" value="0.3">
+            </div>
+            <div class="settings-option">
+                <label for="theme-select">Tema Visual:</label>
+                <select id="theme-select" name="theme-select">
+                    <option value="deluxe-dark">Deluxe Dark (Padrão)</option>
+                    <option value="classic-retro" disabled>Clássico Retrô (Em breve)</option>
+                    <option value="neon-fever" disabled>Febre Neon (Em breve)</option>
+                </select>
+            </div>
+             <button id="saveSettingsBtn" class="action-btn primary-action" style="margin-top: 20px;">Salvar Opções</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
     <script>
-        // Pequeno script para o ano no rodapé
+        // Pequeno script para o ano no rodapé e funcionalidades básicas dos modais e tooltips
         document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const howToPlayModal = document.getElementById('howToPlayModal');
+        const settingsModal = document.getElementById('settingsModal');
+        
+        document.getElementById('howToPlayBtn').addEventListener('click', () => howToPlayModal.classList.remove('hidden'));
+        document.getElementById('closeHowToPlayBtn').addEventListener('click', () => howToPlayModal.classList.add('hidden'));
+        
+        document.getElementById('settingsBtn').addEventListener('click', () => settingsModal.classList.remove('hidden'));
+        document.getElementById('closeSettingsBtn').addEventListener('click', () => settingsModal.classList.add('hidden'));
+
+        // Fechar modal clicando fora do conteúdo (opcional)
+        [howToPlayModal, settingsModal].forEach(modal => {
+            if(modal) {
+                modal.addEventListener('click', function(event) {
+                    if (event.target === this) { // Se o clique foi no fundo do modal
+                        this.classList.add('hidden');
+                    }
+                });
+            }
+        });
+        // Lógica para botão de salvar opções (placeholder)
+        const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+        if(saveSettingsBtn) {
+            saveSettingsBtn.addEventListener('click', () => {
+                alert('Opções salvas (funcionalidade de exemplo)!');
+                settingsModal.classList.add('hidden');
+            });
+        }
+
     </script>
 </body>
 </html>
